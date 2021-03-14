@@ -1,0 +1,7 @@
+{
+  "appId": "com.moha.myTodo.app",
+  "appName": "myTodo",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
