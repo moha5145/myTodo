@@ -3,7 +3,7 @@
     <q-card-section @click="store.methods.showTasks(category), fab1 =!fab1 "
         class="row cursor-pointer  q-py-none q-my-none q-px-none ">
       <div class="text-h6 col text-grey-8 ">
-        <div class="row q-pt-none q-mt-none q-mb-sm q-ml-none q-pl-none">
+        <div class="row q-pt-none q-mt-none q-mb-xl q-pb-lg q-ml-none q-pl-none">
           <!-- <div v-if="category.todoList.length" class=" q-mt-xs q-py-none q-ml-none q-pl-none">
             <q-icon v-if="category.showTasks " 
                     dense
@@ -23,31 +23,22 @@
             
           </div> -->
 
-          <div class="q-mt-sm q-pl-sm col text-grey-7">
+          <div class="q-mt-sm q-px-sm col text-grey-7">
             {{ category.name }}
           </div>
         
           <q-space />
 
-          <!-- <div class="row q-mb-none q-pb-none"> -->
-            <!-- <div class='col q-mt-sm q-mr-sm'>
-              <EditCategory :category="category"/>
-            </div> -->
-
-            <!-- <div class="col q-mt-md q-mr-sm">
-              <DeleteCategory :category="category" />
-            </div> -->
-
             <div style="padding-top: 5px;" class="q-mr-xs">
-              <q-fab
+              <q-fab @click.stop=""
                 v-model="fab1"
                 size="20px"
-                dense
-                color="purple"
+                dense                
                 icon="keyboard_arrow_right"
                 direction="down"
                 :hide-label="hideLabels"
                 padding="xs"
+                :style="{'color': store.state.themeColor}"
               >
                 <DeleteCategory :category="category" />
 
@@ -55,8 +46,8 @@
                 <!-- <q-fab-action :hide-label="hideLabels" external-label label-position="left" color="primary" @click.stop="onClick" icon="mail" label="Email" /> -->
                 
               </q-fab>
-            <!-- </div> -->
-          </div>
+              <!-- </div> -->
+            </div>
          
         </div>
      
@@ -64,21 +55,13 @@
           <div class="col">
             <DateTimePicker :category="category"/>
           </div> 
-
-          <!-- <div class=" q-mb-none q-pb-none"> -->
-            <!-- <div class='text-right col q-mt-none q-mr-sm'>
-              <EditCategory :category="category"/>
-            </div> -->
-
-          
-          <!-- </div>         -->
         </div>
 
       </div>
     </q-card-section>
 
-    <div v-if="category.showTasks" class="bg-grey-2">
-      <q-card  flat style="border-radius: 20px" class="q-pt-lg q-mt-xs bg-grey-2">
+    <div v-if="category.showTasks" class="bg-grey-2" style="border-radius: 20px">
+      <q-card  flat style="border-radius: 20px" class="q-pt-none q-mt-none bg-grey-2">
         <AddAndEditForm 
           :category="category"
           :task="store.state.task"

@@ -1,12 +1,12 @@
 <template>
     <div>
         
-        <q-card flat class="bg-grey-2">
+        <q-card flat class="bg-grey-2" style="border-radius: 20px">
             <form @submit.prevent="submitForm(task, category)" >
-                <div class="q-pa-xs "  :style="{'color': store.state.themeColor}">
+                <div class="q-px-xs " :style="{'color': store.state.themeColor}">
                     <q-input
                         autofocus
-                        color="orange"
+                        
                         v-model="task.name"
                         label="Add task"
                         length="100"
@@ -24,7 +24,7 @@
                         </template>
 
                         <template v-slot:after>
-                            <q-fab v-show="task.name && task.name.length >= 2 && !store.state.isDuplicateName" 
+                            <q-btn v-show="task.name && task.name.length >= 2 && !store.state.isDuplicateName" 
                                 @click.stop="$emit('showTasks')"
                                 round dense icon="add" 
                                 padding="xs"
