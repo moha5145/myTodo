@@ -1,6 +1,6 @@
 <template>
   <div class="my-card q-pb-none">
-    <q-card-section @click="store.methods.showTasks(category) "
+    <q-card-section @click="store.methods.showTasks(category), fab1 =!fab1 "
         class="row cursor-pointer  q-py-none q-my-none q-px-none ">
       <div class="text-h6 col text-grey-8 ">
         <div class="row q-pt-none q-mt-none q-mb-sm q-ml-none q-pl-none">
@@ -29,29 +29,46 @@
         
           <q-space />
 
-          <div class="row q-mb-none q-pb-none">
+          <!-- <div class="row q-mb-none q-pb-none"> -->
             <!-- <div class='col q-mt-sm q-mr-sm'>
               <EditCategory :category="category"/>
             </div> -->
 
-            <div class="col q-mt-sm q-mr-sm">
+            <!-- <div class="col q-mt-md q-mr-sm">
               <DeleteCategory :category="category" />
-            </div>
+            </div> -->
+
+            <div style="padding-top: 5px;" class="q-mr-xs">
+              <q-fab
+                v-model="fab1"
+                size="20px"
+                dense
+                color="purple"
+                icon="keyboard_arrow_right"
+                direction="down"
+                :hide-label="hideLabels"
+                padding="xs"
+              >
+                <DeleteCategory :category="category" />
+
+                <EditCategory :category="category"/>
+                <!-- <q-fab-action :hide-label="hideLabels" external-label label-position="left" color="primary" @click.stop="onClick" icon="mail" label="Email" /> -->
+                
+              </q-fab>
+            <!-- </div> -->
           </div>
-
-          
+         
         </div>
-
-        
-        <div class="row q-mb-sm">
+     
+        <div class="row q-mt-md q-pb-xs">
           <div class="col">
             <DateTimePicker :category="category"/>
           </div> 
 
           <!-- <div class=" q-mb-none q-pb-none"> -->
-            <div class='text-right col q-mt-none q-mr-sm'>
+            <!-- <div class='text-right col q-mt-none q-mr-sm'>
               <EditCategory :category="category"/>
-            </div>
+            </div> -->
 
           
           <!-- </div>         -->
@@ -60,8 +77,8 @@
       </div>
     </q-card-section>
 
-    <div v-if="category.showTasks" >
-      <q-card  flat style="border-radius: 20px" >
+    <div v-if="category.showTasks" class="bg-grey-2">
+      <q-card  flat style="border-radius: 20px" class="q-pt-lg q-mt-xs bg-grey-2">
         <AddAndEditForm 
           :category="category"
           :task="store.state.task"
@@ -142,6 +159,8 @@ export default {
         
         return {
             tab: ref('all'),
+            fab1: ref(false),
+            hideLabels: ref(false),
             store
         }
     }

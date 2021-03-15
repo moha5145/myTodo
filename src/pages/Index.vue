@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex ">
+  <q-page class="flex-center ">
     <Categorys />
   </q-page>
 </template>

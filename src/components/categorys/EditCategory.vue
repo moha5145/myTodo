@@ -1,7 +1,7 @@
 <template>
     <div>
         <div avatar class="col">
-            <q-btn @click.stop=" state.editCategoryDialog = true" round outline
+            <q-btn @click.stop=" state.editCategoryDialog = true" round
                 color="orange"
                 icon="edit" size="sm" />     
         </div>

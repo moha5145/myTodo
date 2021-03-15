@@ -5,7 +5,26 @@ import { reactive } from 'vue'
 const db = new Localbase('myTodo')
 
 const state = reactive({
-    categorys: [],
+    categorys: [
+        {
+            name: 'Course',
+            dueDate: '12/05/2021',
+            dueTime:'14:00',
+            id: uid(),
+            todoList:[
+                {
+                    id: uid(),
+                    done: false,
+                    name: 'Banane',
+                    dueDate: '',
+                    dueTime: '', 
+                    time: new Date()
+                }
+            ],
+            showTasks: true,
+            time: new Date()
+        }
+    ],
     category: {
         name: '',
         dueDate: '',
@@ -30,6 +49,11 @@ const state = reactive({
 
 const methods = {
     getCollection() {
+        // const categ = JSON.parse(JSON.stringify(state.categorys[0]))
+        // db.collection('categorys').add(categ)
+
+        // state.categorys = []
+
         db.collection('categorys').get()
             .then(categorys =>  state.categorys = categorys)
             .catch(error => console.log(error))

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">myTodo</string>
+    <string name="title_activity_main">myTodo</string>
+    <string name="package_name">com.moha.myTodo.app</string>
+    <string name="custom_url_scheme">com.moha.myTodo.app</string>
+</resources>

@@ -1,6 +1,6 @@
     <template>
         <div>
-            <q-btn round outline
+            <q-btn round
                 @click.stop="confirm = true"
                 color="red" icon="delete" 
                 size="sm" class=" text-right ">

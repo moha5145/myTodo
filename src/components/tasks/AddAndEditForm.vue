@@ -24,11 +24,13 @@
                         </template>
 
                         <template v-slot:after>
-                            <q-btn v-show="task.name && task.name.length >= 2 && !store.state.isDuplicateName" 
+                            <q-fab v-show="task.name && task.name.length >= 2 && !store.state.isDuplicateName" 
                                 @click.stop="$emit('showTasks')"
-                                round dense flat icon="add" 
+                                round dense icon="add" 
+                                padding="xs"
                                 class="q-mt-md"
-                                :style="{'background-color': store.state.themeColor, 'color': 'white'}"
+                                color="green-6"
+                                :style="{ 'color': 'white'}"
                                 type="submit"
                                 v-close-popup/>
 

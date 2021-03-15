@@ -1,14 +1,14 @@
 <template>
-  <div style="width: 100%" class="q-px-sm q-pt-lg ">
+  <q-page style="" class="q-px-xs q-pt-lg row">
   
     <q-card flat bordered v-for="category in store.getters.sortedCategory()" 
             :key="category.id" 
-            class=" q-my-lg"
-            style="border-radius: 20px">   
+            class=" q-my-md q-mx-xs col justify-center"
+            style="max-width: 470px; min-width: 340px; border-radius: 20px">   
       <SingleCategory :category="category"></SingleCategory>
     </q-card>
       <!-- <AddCategory></AddCategory> -->
-  </div>
+  </q-page>
 </template>
 
 <script>
