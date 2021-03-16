@@ -1,6 +1,6 @@
 <template>
   <div class="my-card q-pb-none">
-    <q-card-section @click="store.methods.showTasks(category), fab1 =!fab1 "
+    <q-card-section @click="store.methods.showTasks(category) "
         class="row cursor-pointer  q-py-none q-my-none q-px-none ">
       <div class="text-h6 col text-grey-8 ">
         <div class="row q-pt-none q-mt-none q-mb-xl q-pb-lg q-ml-none q-pl-none">
@@ -77,8 +77,8 @@
             align="justify"
         >
           <q-tab name="all" label="all" />
-          <q-tab name="completed" label="completed" />
           <q-tab name="ongoing" label="ongoing" />
+          <q-tab name="completed" label="completed" />
         </q-tabs>
 
         <!-- <q-separator /> -->
@@ -88,16 +88,17 @@
             style="max-height: 420px" virtual-scroll>
             <AllTasks :todoList="category.todoList"  :category="category"/>
           </q-tab-panel>
+          
+          <q-tab-panel name="ongoing" class="q-px-sm q-pb-xs" 
+            style="max-height: 320px" virtual-scroll>
+            <TodoOnGoing :todoList="category.todoList"  :category="category"></TodoOnGoing>
+          </q-tab-panel>
 
           <q-tab-panel name="completed" class="q-px-sm q-pb-xs" 
             style="max-height: 320px" virtual-scroll>
             <TodoCompleted :todoList="category.todoList" :category="category"></TodoCompleted>
           </q-tab-panel>
 
-          <q-tab-panel name="ongoing" class="q-px-sm q-pb-xs" 
-            style="max-height: 320px" virtual-scroll>
-            <TodoOnGoing :todoList="category.todoList"  :category="category"></TodoOnGoing>
-          </q-tab-panel>
 
         </q-tab-panels>
       </q-card>

@@ -11,7 +11,7 @@
                         length="100"
                         @update:modelValue="store.methods.isSameTask(category, task)"
                         :rules="[
-                            store.methods.required('Title'),
+                            
                             store.methods.duplicateName('Task')
                         ]"
                         :style="{'color': store.state.themeColor}"
