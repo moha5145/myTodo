@@ -5,14 +5,13 @@
             <form @submit.prevent="submitForm(task, category)" >
                 <div class="q-px-xs " :style="{'color': store.state.themeColor}">
                     <q-input
-                        autofocus
-                        
                         v-model="task.name"
+                        autofocus
                         label="Add task"
                         length="100"
                         @update:modelValue="store.methods.isSameTask(category, task)"
                         :rules="[
-                            
+                            store.methods.required('Title'),
                             store.methods.duplicateName('Task')
                         ]"
                         :style="{'color': store.state.themeColor}"

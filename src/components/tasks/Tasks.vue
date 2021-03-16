@@ -28,16 +28,35 @@
             </q-item-section>
 
             <!-- <q-space></q-space> -->
-              <div class="row">
-                <q-item-section class=" q-pa-none col">
+
+            <div style="padding-top: 5px;" class="q-mr-xs">
+              <q-fab @click.stop=""
+                v-model="fab1"
+                size="20px"
+                dense                
+                icon="keyboard_arrow_right"
+                direction="left"
+                :hide-label="hideLabels"
+                padding="xs"
+                :style="{'color': store.state.themeColor}"
+              >
+                <DeleteTask :task="list" :category="category"/>
+
+                <EditTask :task='list' :category="category" class="q-mx-none q-px-none"></EditTask>
+                
+              </q-fab>
+              <!-- </div> -->
+            </div>
+              <!-- <div class="row">
+                 <q-item-section class=" q-pa-none col">
                   <EditTask :task='list' :category="category" class="q-mx-none q-px-none"></EditTask>
-                </q-item-section >
+                </q-item-section > -->
 
               
-              <q-item-section  class=" q-pa-none col">
+              <!-- <q-item-section  class=" q-pa-none col">
                 <DeleteTask :task="list" :category="category"/>
-              </q-item-section>
-             </div>
+              </q-item-section> -->
+             <!-- </div> --> 
           </div>
         </q-item-section>
 
@@ -50,7 +69,7 @@
 <script>
 import EditTask from 'components/tasks/EditTask'
 import DeleteTask from './DeleteTask.vue'
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 
 
 export default {
@@ -60,6 +79,7 @@ export default {
       const store = inject('store')
 
       return {
+        fab1: ref(false),
         store
       }
     }
