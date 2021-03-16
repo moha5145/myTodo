@@ -1,6 +1,6 @@
 <template>
   <div class="my-card q-pb-none">
-    <q-card-section @click="store.methods.showTasks(category) "
+    <q-card-section @click="store.methods.showTasks(category), fab1 = false"
         class="row cursor-pointer  q-py-none q-my-none q-px-none ">
       <div class="text-h6 col text-grey-8 ">
         <div class="row q-pt-none q-mt-none q-mb-xl q-pb-lg q-ml-none q-pl-none">
@@ -88,7 +88,7 @@
             style="max-height: 420px" virtual-scroll>
             <AllTasks :todoList="category.todoList"  :category="category"/>
           </q-tab-panel>
-          
+
           <q-tab-panel name="ongoing" class="q-px-sm q-pb-xs" 
             style="max-height: 320px" virtual-scroll>
             <TodoOnGoing :todoList="category.todoList"  :category="category"></TodoOnGoing>
