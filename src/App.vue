@@ -14,9 +14,12 @@ export default defineComponent({
     provide('store', store)
     
     store.methods.getCollection();
-
-    // store.methods.getTheme();
-
+  },
+  created() {
+    const locale = localStorage.getItem('locale')
+    if(locale) {
+      this.$i18n.locale = locale
+    }
   }
 })
 </script>

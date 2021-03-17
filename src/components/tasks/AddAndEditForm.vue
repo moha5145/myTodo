@@ -7,7 +7,7 @@
                     <q-input
                         v-model="task.name"
                         autofocus
-                        label="Add task"
+                        :label="$t('addTask')"
                         length="100"
                         @update:modelValue="store.methods.isSameTask(category, task)"
                         :rules="[

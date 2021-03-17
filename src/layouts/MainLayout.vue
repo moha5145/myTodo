@@ -16,36 +16,18 @@
 
       </q-toolbar>
     </q-header>
+   
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
       color= "red"
-      width= 60
+      width= 90
       class="text-center"
       :style="{'background-color': store.state.themeColor}"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-white q-mx-none q-px-none"
-          >
-        </q-item-label>
 
-        <q-item
-          clickable
-          tag="a"
-          target="_blank"
-          class="q-mx-none q-px-none  q-py-none"
-          >
-          <q-item-section  >
-            <ColorPicker class="q-mx-none"/> 
-          </q-item-section>
-
-        </q-item>
-        
-      </q-list>
+      <LeftDrawer :leftDrawerOpen="leftDrawerOpen"></LeftDrawer>
     </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -57,20 +39,28 @@
 import AddCategory from 'src/components/categorys/AddCategory.vue'
 import { defineComponent, inject, ref } from 'vue'
 import ColorPicker from './ColorPicker.vue'
+import LeftDrawer from './LeftDrawer.vue'
 
 export default defineComponent({
-  components: { ColorPicker, AddCategory },
+  components: { ColorPicker, AddCategory, LeftDrawer },
   name: 'MainLayout',
   setup () {
     const leftDrawerOpen = ref(false)
     const store = inject('store')
+      function toggleLeftDrawer () {
+        leftDrawerOpen.value = !leftDrawerOpen.value
+      }
 
     return {
       leftDrawerOpen,
       store,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      toggleLeftDrawer
+    }
+  },
+  methods: {
+    setLocal(locale) {
+      this.$i18n.locale = locale
+      localStorage.setItem('locale', locale)
     }
   }
 })

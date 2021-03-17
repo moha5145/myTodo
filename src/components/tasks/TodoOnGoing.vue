@@ -10,11 +10,11 @@
         </div>
 
         <div v-else>
-            <h6 class="text-center q-my-xs text-grey-6">Nothing to do</h6>
+            <h6 class="text-center q-my-xs text-grey-6">{{$t( 'NothingToDo' ) }}</h6>
         </div>
     </div>
 
-</template>grey
+</template>
 
 <script>
 import Tasks from './Tasks.vue'

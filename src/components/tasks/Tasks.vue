@@ -2,7 +2,8 @@
   <div>
 
     <q-list :class="{done: list.done, unDone: !list.done } ">
-      <q-item v-ripple @click.stop="store.methods.doneTodo(list, category)" clickable v-model="list.done"
+      <q-item v-ripple @click.stop="store.methods.doneTodo(list, category)" 
+              clickable v-model="list.done"
               class="q-mx-none q-px-none list">
         <q-item-section >
           <div class="row q-mx-none" >
@@ -36,7 +37,6 @@
                 dense                
                 icon="keyboard_arrow_right"
                 direction="left"
-                :hide-label="hideLabels"
                 padding="xs"
                 :style="{'color': store.state.themeColor}"
               >

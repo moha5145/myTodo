@@ -11,7 +11,7 @@
             <q-card style="min-width: 75% border-radius: 20px;" >
                 <q-card-section style="border-radius: 20px;">
                     <div class="row">
-                        <div class="text-h6">Add Title</div>
+                        <div class="text-h6">{{$t('addTitle')}}</div>
                         <q-space></q-space>
                         <q-btn v-close-popup round flat 
                             :style="{'color': store.state.themeColor}"

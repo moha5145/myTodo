@@ -7,7 +7,7 @@
     </div>
 
     <div v-else>
-        <h6 class="text-center q-my-xs text-grey-6">Nothing completed</h6>
+        <h6 class="text-center q-my-xs text-grey-6">{{ $t('nothingCompleted')}}</h6>
     </div>
 </template>
 

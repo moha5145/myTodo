@@ -10,7 +10,7 @@
             <q-card >
                 <q-card-section>
                     <div class="row">
-                        <div class="text-h6">Edit</div>
+                        <div class="text-h6">{{$t('edit')}}</div>
                         <q-space></q-space>
                         <q-btn v-close-popup round flat 
                             :style="{'color': store.state.themeColor}"

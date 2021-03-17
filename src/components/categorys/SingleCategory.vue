@@ -36,7 +36,6 @@
                 dense                
                 icon="keyboard_arrow_right"
                 direction="down"
-                :hide-label="hideLabels"
                 padding="xs"
                 :style="{'color': store.state.themeColor}"
               >
@@ -76,29 +75,25 @@
             indicator-color=orange
             align="justify"
         >
-          <q-tab name="all" label="all" />
-          <q-tab name="ongoing" label="ongoing" />
-          <q-tab name="completed" label="completed" />
+          <q-tab name="all" :label="$t('all')" />
+          <q-tab name="ongoing" :label="$t('ongoing')" />
+          <q-tab name="completed" :label="$t('completed')" />
         </q-tabs>
 
         <!-- <q-separator /> -->
 
         <q-tab-panels v-model="tab" animated class="bg-grey-2 q-px-none  q-mb-none">
-          <q-tab-panel name="all" class="q-px-sm q-pb-xs" 
-            style="max-height: 420px" virtual-scroll>
-            <AllTasks :todoList="category.todoList"  :category="category"/>
+          <q-tab-panel name="all" class="q-px-sm q-pb-xs" >
+            <AllTasks :todoList="category.todoList" :category="category"/>
           </q-tab-panel>
 
-          <q-tab-panel name="ongoing" class="q-px-sm q-pb-xs" 
-            style="max-height: 320px" virtual-scroll>
-            <TodoOnGoing :todoList="category.todoList"  :category="category"></TodoOnGoing>
+          <q-tab-panel name="ongoing" class="q-px-sm q-pb-xs" >
+            <TodoOnGoing :todoList="category.todoList" :category="category"></TodoOnGoing>
           </q-tab-panel>
 
-          <q-tab-panel name="completed" class="q-px-sm q-pb-xs" 
-            style="max-height: 320px" virtual-scroll>
+          <q-tab-panel name="completed" class="q-px-sm q-pb-xs" >
             <TodoCompleted :todoList="category.todoList" :category="category"></TodoCompleted>
           </q-tab-panel>
-
 
         </q-tab-panels>
       </q-card>
