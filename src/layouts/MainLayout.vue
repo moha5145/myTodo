@@ -3,7 +3,7 @@
     <q-header flat :style="{'background-color': store.state.themeColor}">
       <q-toolbar>
         <q-btn flat dense
-          round icon="settings"
+          round icon="menu"
           aria-label="Param"
           @click="toggleLeftDrawer"
           size="md" 
@@ -21,11 +21,11 @@
       v-model="leftDrawerOpen"
       show-if-above
       color= "red"
-      width= 90
+      width= 60
+      :breakpoint="500"
       class="text-center"
       :style="{'background-color': store.state.themeColor}"
     >
-
       <LeftDrawer :leftDrawerOpen="leftDrawerOpen"></LeftDrawer>
     </q-drawer>
     <q-page-container>

@@ -1,7 +1,7 @@
 export default {
   settings: 'ቅንጅቶች',
-  NothingToDo: 'ምንም የማደርገው የለም',
-  nothingCompleted: 'የተጠናቀቀው ነገር የለም',
+  NothingToDo: 'ምንም የምተገብረው የለም',
+  nothingCompleted: 'የተጠናቀቀ ተግባር የለም',
   editTask: 'ተግባርን ያርትዑ',
   confirmDelete: 'እርግጠኛ ነዎት መሰረዝ ይፈልጋሉ',
   cancel: 'ተው',

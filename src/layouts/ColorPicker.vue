@@ -1,7 +1,9 @@
 <template>
-    <q-btn flat class=" full-width ">
-        <q-icon color="white" name="palette" class="cursor-pointer" size="md"> 
-        </q-icon>
+    <q-item clickable v-ripple> 
+        <q-item-section avatar>
+            <q-icon round flat name="palette" color="white" size="md"></q-icon>
+        </q-item-section>
+
         <q-popup-proxy transition-show="scale" transition-hide="scale" >
             <q-color v-model="hex" no-header type="submit" default-view="palette"
                     @change="store.methods.changeColor(hex)"
@@ -9,7 +11,8 @@
                     no-footer
                     v-close-popup/>
         </q-popup-proxy>
-    </q-btn>
+    </q-item>
+    
 </template>
 
 <script>

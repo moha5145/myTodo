@@ -1,7 +1,6 @@
 <template>
     <div>
-        
-        <q-card flat class="bg-grey-2" style="border-radius: 20px">
+        <q-card flat class="" style="border-radius: 20px">
             <form @submit.prevent="submitForm(task, category)" >
                 <div class="q-px-xs " :style="{'color': store.state.themeColor}">
                     <q-input
@@ -9,9 +8,8 @@
                         autofocus
                         :label="$t('addTask')"
                         length="100"
-                        @update:modelValue="store.methods.isSameTask(category, task)"
+                        @update:modelValue="store.methods.isSameTask(task)"
                         :rules="[
-                            
                             store.methods.duplicateName('Task')
                         ]"
                         :style="{'color': store.state.themeColor}"
@@ -27,12 +25,11 @@
                                 @click.stop="$emit('showTasks')"
                                 round dense icon="add" 
                                 padding="xs"
-                                class="q-mt-md"
+                                class="q-mt-md q-mr-sm"
                                 color="green-6"
                                 :style="{ 'color': 'white'}"
                                 type="submit"
                                 v-close-popup/>
-
                             
                         </template>
                     </q-input>

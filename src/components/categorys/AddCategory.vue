@@ -1,7 +1,8 @@
 <template>
     <div>
-        <q-page-sticky position="top" :offset="[-30, -30]">
-            <q-btn @click.stop="state.addCategoryDialog = true, store.methods.closeCategoryAcordion()" 
+        
+        <q-page-sticky v-if="$route.path == '/'" position="bottom" :offset="[0, 18]">
+            <q-btn @click.stop="state.addCategoryDialog = true" 
                     round dark icon="add" size="20px"
                     :style="{'background-color': store.state.themeColor, 'color': 'white'}"
                     class="white-text " />
@@ -23,7 +24,7 @@
                 </q-card-section>   
 
                 <AddEditCategoryForm :category="store.state.category"  
-                                        :submitForm="store.methods.addCategory">
+                                        :submitForm="store.methods.addCategory" :to="'/' + store.state.category.slug">
                 </AddEditCategoryForm>
             </q-card>
         </q-dialog>

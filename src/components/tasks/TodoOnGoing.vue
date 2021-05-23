@@ -1,10 +1,15 @@
 <template>
     <div>
-        <div v-if="incompleted().length" class=" bg-grey-2" >
-
-            <div v-for="list in incompleted()" :key="list.id" class="bg-white" style="border-radius: 20px">
-                <Tasks  :list="list" :category="category"  class="q-mb-xs ">
-                </Tasks>
+        <div v-if="incompleted().length" class="" >
+            <div v-for="list in incompleted()" :key="list.id" class="" style="border-radius: 20px">
+                <transition-group
+                        appear
+                        enter-active-class="animated fadeIn slow"
+                        leave-active-class="animated fadeOut slow"
+                        >
+                <SingleTasks v-if="list.categorySlug == category" :list="list" :category="category"  class="q-mb-xs ">
+                </SingleTasks>
+                </transition-group>
             </div>
             
         </div>
@@ -17,9 +22,9 @@
 </template>
 
 <script>
-import Tasks from './Tasks.vue'
+import SingleTasks from './SingleTasks.vue'
 export default {
-  components: { Tasks },
+  components: { SingleTasks },
     props: ['todoList', 'category'],
 
      setup(props) {

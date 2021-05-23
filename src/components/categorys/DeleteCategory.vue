@@ -1,7 +1,7 @@
     <template>
         <div>
             <q-btn round
-                @click.stop="confirm = true"
+                @click.prevent="confirm = true"
                 color="red" icon="delete" 
                 size="sm" class=" text-right ">
             </q-btn> 

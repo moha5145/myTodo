@@ -4,7 +4,15 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { 
+        path: '', component: () => import('pages/Index.vue') 
+      },
+      
+      { path: '/:category_slug', 
+        component: () => import('src/components/tasks/TasksDetail.vue'),
+        name: 'TasksDetail',
+        props: true 
+      }
     ]
   },
 

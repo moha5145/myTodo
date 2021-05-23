@@ -1,14 +1,14 @@
 <template>
-  <q-div style="" class="q-px-xs q-pt-lg row">
+  <div style="" class="q-px-xs q-pt-sm row">
   
-    <q-card flat bordered v-for="category in store.getters.sortedCategory()" 
+    <q-card flat bordered v-for="category in store.state.categorys" 
             :key="category.id" 
-            class=" q-my-md q-mx-xs col"
+            class=" q-my-sm q-mx-xs col"
             style="max-width: 470px; min-width: 340px; border-radius: 20px">   
-      <SingleCategory :category="category"></SingleCategory>
+      <SingleCategory :category="category " ></SingleCategory>
     </q-card>
-      <!-- <AddCategory></AddCategory> -->
-  </q-div>
+      
+  </div>
 </template>
 
 <script>

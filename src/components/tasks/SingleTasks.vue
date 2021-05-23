@@ -1,21 +1,32 @@
 <template>
   <div>
-
     <q-list :class="{done: list.done, unDone: !list.done } ">
-      <q-item v-ripple @click.stop="store.methods.doneTodo(list, category)" 
-              clickable v-model="list.done"
+
+      <q-item 
+              v-model="list.done"
               class="q-mx-none q-px-none list">
         <q-item-section >
           <div class="row q-mx-none" >
             <q-item-section side class=" q-mx-sm q-pr-xs" >
-              <q-icon v-if="list.done" 
+              <q-icon v-if="list.done" @click.stop="store.methods.doneTodo(list, category)" 
+                      clickable
+                      flat
+                      round
+                      dense
+                      class="cursor-pointer"
                       :value="list.done" name="check_circle_outline" 
                       color="green" size="md">
               </q-icon>
 
-              <q-icon v-else 
+              <q-icon v-else @click.stop="store.methods.doneTodo(list, category)" 
+                      clickable
+                      flat
+                      round
+                      dense
+                      class="cursor-pointer"
                       :value="list.done" name="panorama_fish_eye" 
                       color="orange" size="md">
+
               </q-icon>
               
             </q-item-section>

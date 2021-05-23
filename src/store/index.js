@@ -1,47 +1,37 @@
 import { uid } from "quasar";
 import Localbase from 'localbase'
 import { reactive } from 'vue'
+import slugify from 'slugify'
+// import { useQuasar } from 'quasar'
 
 const db = new Localbase('myTodo')
+// const $q = useQuasar()
 
 const state = reactive({
-    categorys: [
-        {
-            name: 'Course',
-            dueDate: '12/05/2021',
-            dueTime:'14:00',
-            id: uid(),
-            todoList:[
-                {
-                    id: uid(),
-                    done: false,
-                    name: 'Banane',
-                    dueDate: '',
-                    dueTime: '', 
-                    time: new Date()
-                }
-            ],
-            showTasks: true,
-            time: new Date()
-        }
-    ],
+    // $q: useQuasar(),
+    categorys: [],
     category: {
         name: '',
         dueDate: '',
         dueTime:'',
+        slug: '',
         id: uid(),
-        todoList:[],
         showTasks: true,
-        time: new Date()
+        created_at: new Date()
     },
+    todoList:[
+        
+    ],
     task:  {
         id: uid(),
         done: false,
         name: '',
         dueDate: '',
         dueTime: '', 
-        time: new Date()
+        categorySlug: '',
+        created_at: new Date()
     },
+    // list: [],
     themeColor: "#f57b00",
     isDuplicateName: null,
     addTaskDialog: false
@@ -49,19 +39,19 @@ const state = reactive({
 
 const methods = {
     getCollection() {
-        // const categ = JSON.parse(JSON.stringify(state.categorys[0]))
-        // db.collection('categorys').add(categ)
 
-        // state.categorys = []
-
-        db.collection('categorys').get()
+        db.collection('categorys').orderBy('created_at', 'desc').get()
             .then(categorys =>  state.categorys = categorys)
             .catch(error => console.log(error))
 
+        db.collection('todoList').orderBy('created_at', 'desc').get()
+            .then(todoList =>  state.todoList = todoList)
+            .catch(error => console.log(error))
+
         db.collection('changeTheme').get()
-                .then(themeColor => state.themeColor = themeColor[0].themeColor)
-                .catch(error => console.log(error))
-                console.log('from get data', state.themeColor)
+            .then(themeColor => state.themeColor = themeColor[0].themeColor)
+            .catch(error => console.log(error))
+                
     },
 
     changeColor(payload) {
@@ -72,10 +62,16 @@ const methods = {
     },
         
     addCategory(category) {
+        category.slug = slugify(category.name, {
+            replacement: '-',
+            remove: /[$*_+~.()'"!\-:@]/g,
+            lower: true
+        })
+
         const categ = JSON.parse(JSON.stringify(category))
-        
+    
         db.collection('categorys').add(categ)
-            .then(state.categorys = [...state.categorys, category])
+            .then(state.categorys.unshift(category))
             .catch((err) => {
                 console.log(err)
             })
@@ -85,9 +81,7 @@ const methods = {
             dueDate: '',
             dueTime: '',
             id: uid(),
-            todoList: [],
-            showTasks: true,
-            time: new Date()
+            created_at: new Date()
         }
         // state.addTaskDialog = true
     },
@@ -110,13 +104,18 @@ const methods = {
     },
     
     editCategory(payload) {
+        payload.slug = slugify(payload.name, {
+            replacement: '-',
+            remove: /[$*_+~.()'"!\-:@]/g,
+            lower: true
+        })
+
         state.categorys.find(category => {
             if(category.id === payload.id) {
-                console.log(payload.name)
                 category.name = payload.name
+                category.slug = payload.slug
                 category.dueDate = payload.dueDate
                 category.dueTime = payload.dueTime
-                category.showTasks = payload.showTasks
             }
         
             db.collection('categorys').doc({ id: payload.id })
@@ -124,121 +123,101 @@ const methods = {
                     name: payload.name,
                     dueDate: payload.dueDate,
                     dueTime: payload.dueTime,
-                    // showTasks: payload.showTasks,
-                    // todoList: payload.todoList
+                    slug: payload.slug
                 })
             }) 
             
     },
-    closeCategoryAcordion() {
-        return state.categorys.find(category => {
-              category.showTasks = false
-    
-              db.collection('categorys').doc({ id: category.id })
-              .update({ showTasks: category.showTasks })
-        })
-    },
-    showTasks(payload) {
-        return state.categorys.find(category => {
-            if(category.id == payload.id) {
-                category.showTasks = !category.showTasks
+ 
+    deleteCategory(payload) {
+        db.collection('todoList').doc({ categorySlug: payload.slug}).delete()
+        
+        state.todoList = state.todoList.filter(list => {    
+            if(payload.slug === list.categorySlug) {
+                return list.categorySlug != payload.slug
             }
         })
-    },
-
-    deleteCategory(payload) {
+        
         db.collection('categorys').doc({ id: payload.id }).delete()
         
-        let list = state.categorys.findIndex(category => category.id === payload.id)
-          state.categorys.splice(list, 1)
+        state.categorys = state.categorys.filter(category => category.id != payload.id)
     },
 
-    isSameTask(categ, tas) { 
-        state.isDuplicateName = null
-        state.categorys.find(category => {
-            if(category.name === categ.name) {
-                category.todoList.find(task => {
-                    if(task.name === tas.name) {
-                        console.log(tas.name)
-                        return state.isDuplicateName = task.name
-                    }
-                })
-            } 
-        })
-    },
-    addTask(payload1, payload2) {  
-        state.categorys.find(category => { 
-            if(category.id == payload2.id) {
-                category.todoList.push(payload1)
-
-                const todoList = JSON.parse(JSON.stringify(category.todoList))
-                db.collection('categorys')
-                    .doc({ id: payload2.id })
-                    .update( {todoList: todoList})
+    isSameTask(tas) { 
+        state.isDuplicateName = null 
+        state.todoList.find(task => {
+            if(task.name === tas.name) {
+                return state.isDuplicateName = task.name
             }
-            state.addTaskDialog = false
-        })
+        })    
+    },
 
+    addTask(payload1, payload2) {  
+  
+        payload1.categorySlug = payload2.slug
+
+        const todoList = JSON.parse(JSON.stringify(payload1))
+
+        db.collection('todoList').add(todoList)
+            .then(state.todoList.unshift(payload1))
+        
         state.task =  {
             id: uid(),
             done: false,
             name: '',
             dueDate: '',
             dueTime: '',
-            time: new Date()
+            categorySlug: '',
+            created_at: new Date()
         }
     },
 
-    editTask(payload, payload2) {
-        state.categorys.find(category => {
-            category.todoList.find(list => {
-                if(list.id === payload.id) {
-                    list.name = payload.name,
-                    list.dueDate = payload.dueDate,
-                    list.dueTime = payload.dueTime,
-                    list.done = payload.done 
+    editTask(payload) {        
+        state.todoList.find(list => {
+            if(list.id === payload.id) {
+                list.name = payload.name,
+                list.dueDate = payload.dueDate,
+                list.dueTime = payload.dueTime,
+                list.done = payload.done 
 
-                    const todoList = JSON.parse(JSON.stringify(category.todoList))
-                    db.collection('categorys')
-                        .doc({ id: payload2.id })
-                        .update( {todoList: todoList})
-                }
-            })
-        })
-    },
-    deleteTask(payload1, payload2) {
-        state.categorys.find(category => {
-            if(category.id === payload2.id) {
-              category.todoList = category.todoList.filter(task => task.id != payload1.id)
-
-              const todoList = JSON.parse(JSON.stringify(category.todoList))
-      
-              db.collection('categorys')
-              .doc({ id: payload2.id })
-              .update({ todoList: todoList })
+                db.collection('todoList')
+                    .doc({ id: payload.id })
+                    .update( {
+                        name: payload.name,
+                        dueDate: payload.dueDate,
+                        dueTime: payload.dueTime,
+                        done: payload.done })
             }
-        })
+        })     
     },
 
-    doneTodo(payload1, payload2) {
-        return state.categorys.find(category => {
-          return category.todoList.find(task => {
-            if(task.id === payload1.id) {
-               task.done = !task.done
-    
-               const todoList = JSON.parse(JSON.stringify(category.todoList))
-               db.collection('categorys')
-                .doc({ id: payload2.id })
-                .update({ todoList:  todoList })
+    deleteTask(payload) {
+        db.collection('todoList')
+            .doc({ id: payload.id })
+            .delete()  
+            .then(state.todoList = state.todoList.filter(task => task.id != payload.id))
+    },
+
+    doneTodo(payload) {
+        return state.todoList.find(task => {
+            if(task.id === payload.id) {
+                task.done = !task.done
+
+                db.collection('todoList')
+                .doc({ id: payload.id })
+                .update({ done:  payload.done })
             }
-          })
-        })
+        })  
     }
 };
 
 const getters = {
-    sortedCategory() {
-        return state.categorys.slice().sort((a, b) => (b.date > a.date)  ? 1 : -1  )
+    // sortedCategory() {
+    //     return state.categorys.slice().sort((a, b) => (b.date > a.date)  ? 1 : -1  )
+    // }
+
+    todoList(payload) {
+        return state.todoList.filter(todo => todo.slug == payload)
     }
 }
 

@@ -13,15 +13,16 @@
     "tauriIcon": "tauri icon --icon AppIcon.png"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.10.4",
     "core-js": "^3.6.5",
     "localbase": "^0.7.4",
-    "quasar": "^2.0.0-beta.1",
+    "quasar": "^2.0.0-beta.17",
+    "slugify": "^1.5.3",
     "tauri": "^0.14.1",
     "vue-i18n": "^9.0.0-beta.0"
   },
   "devDependencies": {
-    "@quasar/app": "^3.0.0-beta.1",
+    "@quasar/app": "^3.0.0-beta.24",
     "electron": "^12.0.1"
   },
   "browserslist": [

@@ -1,8 +1,8 @@
 <template>
-    <div class=" bg-grey-2" v-if="completed().length">
+    <div class="" v-if="completed().length">
         
-        <div v-for="list in  completed()" :key="list.id" class=" bg-white" style="border-radius: 20px">
-            <Tasks  :list="list" :category="category"  class="q-mb-xs"></Tasks>
+        <div v-for="list in  completed()" :key="list.id" class="" style="border-radius: 20px">
+            <SingleTasks v-if="list.categorySlug == category"  :list="list" :category="category"  class="q-mb-xs"></SingleTasks>
         </div>
     </div>
 
@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import Tasks from './Tasks.vue'
+import SingleTasks from './SingleTasks.vue'
 export default {
-  components: { Tasks },
+  components: { SingleTasks },
     props: ['todoList', 'category'],
     setup(props) {
         function completed() {
