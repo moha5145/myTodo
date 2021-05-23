@@ -34,18 +34,6 @@
                         </template>
                     </q-input>
                 </div>
-
-                <!-- <q-card-actions align="right">
-                    
-                    <q-btn v-show="task.name && task.name.length >= 2 && !store.state.isDuplicateName" @click="$emit('showTasks')"
-                        label="SAVE" 
-                        :style="{'background-color': store.state.themeColor, 'color': 'white'}"
-                        type="submit"
-                        v-close-popup
-                        > 
-                    </q-btn>
-                    
-                </q-card-actions> -->
             </form>
         </q-card>
        

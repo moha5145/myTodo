@@ -7,7 +7,6 @@
             <q-dialog v-model="confirm" persistent>
                 <q-card>
                     <q-card-section class="row items-center">
-                    <!-- <q-avatar icon="delete" color="primary" text-color="white" /> -->
                     <span class="q-ml-sm text-grey">{{$t('confirmDelete')}} {{task.name}}.</span>
                     </q-card-section>
 

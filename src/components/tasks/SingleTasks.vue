@@ -39,8 +39,6 @@
               </q-item-label>
             </q-item-section>
 
-            <!-- <q-space></q-space> -->
-
             <div style="padding-top: 5px;" class="q-mr-xs">
               <q-fab @click.stop=""
                 v-model="fab1"
@@ -56,23 +54,12 @@
                 <EditTask :task='list' :category="category" class="q-mx-none q-px-none"></EditTask>
                 
               </q-fab>
-              <!-- </div> -->
+             
             </div>
-              <!-- <div class="row">
-                 <q-item-section class=" q-pa-none col">
-                  <EditTask :task='list' :category="category" class="q-mx-none q-px-none"></EditTask>
-                </q-item-section > -->
-
-              
-              <!-- <q-item-section  class=" q-pa-none col">
-                <DeleteTask :task="list" :category="category"/>
-              </q-item-section> -->
-             <!-- </div> --> 
           </div>
         </q-item-section>
 
       </q-item>
-      <!-- <q-separator /> -->
     </q-list>
   </div>
 </template>

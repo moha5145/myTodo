@@ -52,7 +52,6 @@ export default {
             console.log('chala')
         }
 
-
         const router = useRouter()
 
         function pushToList() {

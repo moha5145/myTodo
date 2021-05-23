@@ -2,13 +2,10 @@ import { uid } from "quasar";
 import Localbase from 'localbase'
 import { reactive } from 'vue'
 import slugify from 'slugify'
-// import { useQuasar } from 'quasar'
 
 const db = new Localbase('myTodo')
-// const $q = useQuasar()
 
 const state = reactive({
-    // $q: useQuasar(),
     categorys: [],
     category: {
         name: '',
@@ -125,7 +122,7 @@ const methods = {
                     dueTime: payload.dueTime,
                     slug: payload.slug
                 })
-            }) 
+        }) 
             
     },
  

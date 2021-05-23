@@ -8,7 +8,6 @@
             class="q-my-sm"
             :label="$t('addTask')"
         > 
-        <!-- <q-icon name="add"></q-icon> -->
         </q-btn>
 
         <q-dialog v-model="store.state.addTaskDialog" >
@@ -37,8 +36,8 @@
 </template>
 
 <script>
-import { inject, reactive } from 'vue'
-// import { uid } from 'quasar'
+import { inject } from 'vue'
+
 import AddAndEditForm from './AddAndEditForm.vue'
 export default {
   components: { AddAndEditForm },
