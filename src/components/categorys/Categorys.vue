@@ -1,5 +1,5 @@
 <template>
-  <div style="" class="q-px-xs q-pt-sm row">
+  <div style="" class="q-px-xs q-pt-md row justify-center">
   
     <q-card flat bordered v-for="category in store.state.categorys" 
             :key="category.id" 

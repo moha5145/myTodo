@@ -1,7 +1,7 @@
 <template>
     <div>
-        <q-page-sticky position="bottom" :offset="[0, 18]">
-            <q-btn @click.stop="state.addCategoryDialog = true" 
+        <q-page-sticky v-if="$route.path == '/'" position="bottom" :offset="[0, 18]">
+            <q-btn  @click.stop="state.addCategoryDialog = true" 
                     round dark icon="add" size="20px"
                     :style="{'background-color': store.state.themeColor, 'color': 'white'}"
                     class="white-text " />
