@@ -1,6 +1,6 @@
 <template>
     <div   v-if="category[0]"  class="row q-mx-sm justify-center" style="border-radius: 20px" >
-      <div class="col-12 col-sm-10 col-md-8">
+      <div class="col-12 col-sm-10 col-md-8 q-mt-md">
         <q-card  flat bordered style="border-radius: 20px" class="q-pt-none q-mt-md ">
         
           <div class="row">

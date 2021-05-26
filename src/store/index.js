@@ -16,9 +16,7 @@ const state = reactive({
         showTasks: true,
         created_at: new Date()
     },
-    todoList:[
-        
-    ],
+    todoList:[],
     task:  {
         id: uid(),
         done: false,
@@ -28,7 +26,6 @@ const state = reactive({
         categorySlug: '',
         created_at: new Date()
     },
-    // list: [],
     themeColor: "#f57b00",
     isDuplicateName: null,
     addTaskDialog: false
@@ -59,27 +56,30 @@ const methods = {
     },
         
     addCategory(category) {
-        category.slug = slugify(category.name, {
-            replacement: '-',
-            remove: /[$*_+~.()'"!\-:@]/g,
-            lower: true
-        })
-
-        const categ = JSON.parse(JSON.stringify(category))
-    
-        db.collection('categorys').add(categ)
-            .then(state.categorys.unshift(category))
-            .catch((err) => {
-                console.log(err)
+        if(!state.isDuplicateName && category.name) {
+            category.slug = slugify(category.name, {
+                replacement: '-',
+                remove: /[$*_+~.()'"!\-:@]/g,
+                lower: true
             })
 
-        state.category = {
-            name: '',
-            dueDate: '',
-            dueTime: '',
-            id: uid(),
-            created_at: new Date()
+            const categ = JSON.parse(JSON.stringify(category))
+        
+            db.collection('categorys').add(categ)
+                .then(state.categorys.unshift(category))
+                .catch((err) => {
+                    console.log(err)
+                })
+
+                state.category = {
+                    name: '',
+                    dueDate: '',
+                    dueTime: '',
+                    id: uid(),
+                    created_at: new Date()
+                }
         }
+        // state.isDuplicateName = false
         // state.addTaskDialog = true
     },
 
@@ -91,11 +91,18 @@ const methods = {
         return v => v !== state.isDuplicateName || `You must add another ${propertyType}, this name exists`
     },
 
+    minLength(propertyType, minLength){
+        return v => v && v.length >= minLength || `${propertyType} must be minimum ${minLength} caracter`
+    },
+
+    toUppercase(payload) {
+        return payload.name = payload.name.toUpperCase()
+    },
     isSameCategory(payload) { 
         state.isDuplicateName = null
         state.categorys.find(category => {
             if(category.name === payload.name) {
-              return state.isDuplicateName = category.name
+              state.isDuplicateName = category.name
             } 
         })
     },
@@ -140,33 +147,37 @@ const methods = {
         state.categorys = state.categorys.filter(category => category.id != payload.id)
     },
 
-    isSameTask(tas) { 
-        state.isDuplicateName = null 
-        state.todoList.find(task => {
-            if(task.name === tas.name) {
-                return state.isDuplicateName = task.name
+    isSameTask(payload) { 
+        state.isDuplicateName = null
+        return state.todoList.find(task => {
+            if(task.name === payload.name) {
+                return state.isDuplicateName = payload.name
             }
         })    
     },
 
     addTask(payload1, payload2) {  
-  
-        payload1.categorySlug = payload2.slug
+        if(!state.isDuplicateName && payload1.name) {
 
-        const todoList = JSON.parse(JSON.stringify(payload1))
+            payload1.categorySlug = payload2.slug
+    
+            const todoList = JSON.parse(JSON.stringify(payload1))
 
-        db.collection('todoList').add(todoList)
-            .then(state.todoList.unshift(payload1))
-        
-        state.task =  {
-            id: uid(),
-            done: false,
-            name: '',
-            dueDate: '',
-            dueTime: '',
-            categorySlug: '',
-            created_at: new Date()
+            db.collection('todoList').add(todoList)
+                .then(state.todoList.unshift(payload1))
+            
+            state.task =  {
+                id: uid(),
+                done: false,
+                name: '',
+                dueDate: '',
+                dueTime: '',
+                categorySlug: '',
+                created_at: new Date()
+            }
         }
+        // state.isDuplicateName = false
+
     },
 
     editTask(payload) {        

@@ -3,7 +3,7 @@
   
     <q-card flat bordered v-for="category in store.state.categorys" 
             :key="category.id" 
-            class=" q-my-sm q-mx-xs col"
+            class=" q-my-md q-mx-xs col"
             style="max-width: 470px; min-width: 340px; border-radius: 20px">   
       <SingleCategory :category="category " ></SingleCategory>
     </q-card>

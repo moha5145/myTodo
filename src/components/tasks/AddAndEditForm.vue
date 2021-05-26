@@ -8,10 +8,12 @@
                         autofocus
                         :label="$t('addTask')"
                         length="100"
-                        @update:modelValue="store.methods.isSameTask(task)"
                         :rules="[
-                            store.methods.duplicateName('Task')
+                            store.methods.required('name'),
+                            store.methods.duplicateName('name'),
+                            store.methods.minLength('Title', 2)
                         ]"
+                        @update:modelValue="store.methods.toUppercase(task), store.methods.isSameTask(task)"
                         :style="{'color': store.state.themeColor}"
                         >
 
@@ -21,7 +23,7 @@
                         </template>
 
                         <template v-slot:after>
-                            <q-btn v-show="task.name && task.name.length >= 2 && !store.state.isDuplicateName" 
+                            <q-btn v-if="task.name && task.name.length >= 2 && !store.state.isDuplicateName" 
                                 @click.stop="$emit('showTasks')"
                                 round dense icon="add" 
                                 padding="xs"

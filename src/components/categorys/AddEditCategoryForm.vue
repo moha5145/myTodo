@@ -7,11 +7,12 @@
                 :label="$t('title')" counter 
                 maxlength="50" 
                 :rules="[
-                    store.methods.required('Title'),
-                    store.methods.duplicateName('Title')
+                    store.methods.required('title'),
+                    store.methods.duplicateName('title'),
+                    store.methods.minLength('Title', 2)
                 ]"
                 
-                @update:modelValue="store.methods.isSameCategory(category)"
+                @update:modelValue="store.methods.toUppercase(category), store.methods.isSameCategory(category)"
                 autofocus
                 :style="{'color': store.state.themeColor, 'border-color': store.state.themeColor}"
                 >
@@ -25,9 +26,9 @@
 
         </div>
 
-        <q-card-actions align="right" 
-            v-show='category.name && category.name.length >= 2 && !store.state.isDuplicateName'>
-            <q-btn :style="{'background-color': store.state.themeColor, 'color': 'white'}"
+        <q-card-actions align="right" >
+            <q-btn v-if="!store.state.isDuplicateName && category.name.length >= 2" :style="{'background-color': store.state.themeColor, 'color': 'white'}"
+                
                 :label="$t('save')" 
                 type="submit"
 
@@ -55,7 +56,9 @@ export default {
         const router = useRouter()
 
         function pushToList() {
-            router.push('/' + props.category.slug)
+            // if(store.state.isDuplicateName) {
+                router.push('/' + props.category.slug)
+            // }
         }
 
         return {
