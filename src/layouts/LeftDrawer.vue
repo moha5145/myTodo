@@ -1,19 +1,20 @@
 <template>
      
       <q-list class="justify-center">
-        <q-item-label
+        <!-- <q-item-label
           header
           class="text-white q-mx-none q-px-none"
           >
-            {{$t('settings' )}}
           
-        </q-item-label>
+          
+        </q-item-label> -->
 
         <q-item 
           clickable 
           v-ripple 
           dark
           @click="darkMode()" 
+          class="q-mt-xl"
           >
           <q-item-section avatar>
             <q-icon v-if="$q.dark.mode == true" 
