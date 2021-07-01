@@ -12,9 +12,11 @@
                     store.methods.minLength('Title', 2)
                 ]"
                 
-                @update:modelValue="store.methods.toUppercase(category), store.methods.isSameCategory(category)"
+                @update:modelValue="store.methods.toUppercase(category), 
+                        store.methods.isSameCategory(category)"
                 autofocus
-                :style="{'color': store.state.themeColor, 'border-color': store.state.themeColor}"
+                :style="{'color': store.state.themeColor, 
+                        'border-color': store.state.themeColor}"
                 >
                 <template v-slot:append>
                     <q-icon v-if="category.name" name="close" 
@@ -27,11 +29,13 @@
         </div>
 
         <q-card-actions align="right" >
-            <q-btn v-if="!store.state.isDuplicateName && category.name.length >= 2" :style="{'background-color': store.state.themeColor, 'color': 'white'}"
+            <q-btn v-if="!store.state.isDuplicateName && 
+                category.name.length >= 2" 
+                :style="{'background-color': store.state.themeColor, 
+                        'color': 'white'}"
                 
                 :label="$t('save')" 
                 type="submit"
-
                 v-close-popup
                     />
         </q-card-actions>

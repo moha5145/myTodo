@@ -169,40 +169,82 @@ module.exports = configure(function (/* ctx */) {
       linuxAndroidStudio: "/home/moha/android-studio-ide/android-studio/bin/studio.sh"
       
     },
+    
+    sourceFiles: {
+      electronMain: 'src-electron/electron-main',
+      electronPreload: 'src-electron/electron-preload'
+    },
+
     // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
-    electron: {
-      bundler: 'packager', // 'packager' or 'builder'
+    // electron configuration
+electron: {
+  bundler: 'builder', // or 'builder'
 
-      packager: {
-        // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
+  // electron-packager options
+  // https://electron.github.io/electron-packager/master/
+  packager: {
+    //...
+  },
 
-        // OS X / Mac App Store
-        // appBundleId: '',
-        // appCategoryType: '',
-        // osxSign: '',
-        // protocol: 'myapp://path',
-
-        // Windows only
-        // win32metadata: { ... }
-      },
-
-      builder: {
-        // https://www.electron.build/configuration/configuration
-
-        appId: 'my-todo'
-      },
-
-      // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpackMain (/* chain */) {
-        // do something with the Electron main process Webpack cfg
-        // extendWebpackMain also available besides this chainWebpackMain
-      },
-
-      // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpackPreload (/* chain */) {
-        // do something with the Electron main process Webpack cfg
-        // extendWebpackPreload also available besides this chainWebpackPreload
-      },
+  // electron-builder options
+  // https://www.electron.build/configuration/configuration
+  builder: {
+    appId: 'my-todo',
+    linux: {
+      target: [
+          'AppImage',
+          'deb'
+      ]
     }
+  },
+  // Specify additional parameters when yarn/npm installing
+  // the UnPackaged folder, right before bundling with either
+  // electron packager or electron builder;
+  // Example: [ '--ignore-optional', '--some-other-param' ]
+  unPackagedInstallParams: [],
+
+  // optional; add/remove/change properties
+  // of production generated package.json
+  extendPackageJson (pkg) {
+    // directly change props of pkg;
+    // no need to return anything
+  },
+
+  // optional; webpack config Object for
+  // the Main Process ONLY (/src-electron/main-process/electron-main.js)
+  extendWebpackMain (cfg) {
+    // directly change props of cfg;
+    // no need to return anything
+  },
+
+  // optional; EQUIVALENT to extendWebpackMain() but uses webpack-chain;
+  // for the Main Process ONLY (/src-electron/main-process/electron-main.js)
+  chainWebpackMain (chain) {
+    // chain is a webpack-chain instance
+    // of the Webpack configuration
+
+    // example:
+    // chain.plugin('eslint-webpack-plugin')
+    //   .use(ESLintPlugin, [{ extensions: [ 'js' ] }])
+  },
+
+  // optional; webpack config Object for
+  // the Preload Process ONLY (/src-electron/main-process/electron-preload.js)
+  extendWebpackPreload (cfg) {
+    // directly change props of cfg;
+    // no need to return anything
+  },
+
+  // optional; EQUIVALENT to extendWebpackPreload() but uses webpack-chain;
+  // for the Preload Process ONLY (/src-electron/main-process/electron-preload.js)
+  chainWebpackPreload (chain) {
+    // chain is a webpack-chain instance
+    // of the Webpack configuration
+
+    // example:
+    // chain.plugin('eslint-webpack-plugin')
+    //   .use(ESLintPlugin, [{ extensions: [ 'js' ] }])
+  }
+}
   }
 });

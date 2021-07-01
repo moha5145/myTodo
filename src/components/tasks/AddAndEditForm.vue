@@ -13,7 +13,8 @@
                             store.methods.duplicateName('name'),
                             store.methods.minLength('Title', 2)
                         ]"
-                        @update:modelValue="store.methods.toUppercase(task), store.methods.isSameTask(task)"
+                        @update:modelValue="store.methods.toUppercase(task), 
+                                store.methods.isSameTask(task)"
                         :style="{'color': store.state.themeColor}"
                         >
 
